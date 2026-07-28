@@ -99,85 +99,35 @@ export function Navbar() {
   return (
     <>
       <header
-      className={cn(
-        "fixed top-0 z-50 w-full transition-all duration-300",
-        scrolled ? "py-3" : "py-5"
-      )}
-    >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
-        <div
-          className={cn(
-            "flex w-full items-center justify-between rounded-2xl px-4 py-2.5 transition-all duration-300",
-            scrolled ? "glass shadow-lg shadow-black/20" : "border border-transparent"
-          )}
-        >
-          <Link 
-            href="/#top" 
-            className="flex items-center"
-            onClick={(e) => handleScroll(e, "/#top")}
+        className={cn(
+          "fixed top-0 z-50 w-full transition-all duration-300",
+          scrolled ? "py-3" : "py-5"
+        )}
+      >
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
+          <div
+            className={cn(
+              "flex w-full items-center justify-between rounded-2xl px-4 py-2.5 transition-all duration-300",
+              scrolled ? "glass shadow-lg shadow-black/20" : "border border-transparent"
+            )}
           >
-            <Logo />
-          </Link>
-
-          <nav className="hidden items-center gap-7 lg:flex">
-            {MAIN_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={(e) => handleScroll(e, link.href)}
-                className={cn(
-                  "whitespace-nowrap text-sm transition-colors hover:text-white",
-                  isActive(link.href) ? "text-white" : "text-muted"
-                )}
-              >
-                {link.label}
-              </Link>
-            ))}
-
-
-          </nav>
-
-          <div className="hidden items-center gap-3 lg:flex">
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="group inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-white px-4 py-2 text-sm font-medium text-black transition-transform hover:scale-[1.03]"
+            <Link
+              href="/#top"
+              className="flex items-center"
+              onClick={(e) => handleScroll(e, "/#top")}
             >
-              Start Free Trial
-              <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </button>
-          </div>
+              <Logo />
+            </Link>
 
-          <button
-            onClick={() => setOpen((v) => !v)}
-            className="flex h-9 w-9 items-center justify-center rounded-lg text-white lg:hidden"
-            aria-label="Toggle menu"
-          >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="mx-6 mt-2 overflow-hidden rounded-2xl lg:hidden"
-          >
-            <div className="flex flex-col gap-1 rounded-2xl border border-white/10 bg-[#05070d] p-4 shadow-2xl shadow-black/60">
+            <nav className="hidden items-center gap-7 lg:flex">
               {MAIN_LINKS.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  onClick={(e) => {
-                    handleScroll(e, link.href);
-                    setOpen(false);
-                  }}
+                  onClick={(e) => handleScroll(e, link.href)}
                   className={cn(
-                    "rounded-lg px-3 py-2.5 text-sm hover:bg-white/5 hover:text-white",
-                    isActive(link.href) ? "bg-white/5 text-white" : "text-muted"
+                    "whitespace-nowrap text-sm transition-colors hover:text-white",
+                    isActive(link.href) ? "text-white font-medium" : "text-white/70"
                   )}
                 >
                   {link.label}
@@ -185,26 +135,76 @@ export function Navbar() {
               ))}
 
 
+            </nav>
 
+            <div className="hidden items-center gap-3 lg:flex">
               <button
-                onClick={() => {
-                  setOpen(false);
-                  setIsModalOpen(true);
-                }}
-                className="mt-2 rounded-lg bg-white px-3 py-2.5 text-center text-sm font-medium text-black"
+                onClick={() => setIsModalOpen(true)}
+                className="group inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-white px-4 py-2 text-sm font-medium text-black transition-transform hover:scale-[1.03]"
               >
                 Start Free Trial
+                <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </button>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
-    
-    <ContactModal 
-      isOpen={isModalOpen} 
-      onClose={() => setIsModalOpen(false)} 
-    />
+
+            <button
+              onClick={() => setOpen((v) => !v)}
+              className="flex h-9 w-9 items-center justify-center rounded-lg text-white lg:hidden"
+              aria-label="Toggle menu"
+            >
+              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="mx-6 mt-2 overflow-hidden rounded-2xl lg:hidden"
+            >
+              <div className="flex flex-col gap-1 rounded-2xl border border-white/10 bg-[#05070d] p-4 shadow-2xl shadow-black/60">
+                {MAIN_LINKS.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={(e) => {
+                      handleScroll(e, link.href);
+                      setOpen(false);
+                    }}
+                    className={cn(
+                      "rounded-lg px-3 py-2.5 text-sm hover:bg-white/5 hover:text-white",
+                      isActive(link.href) ? "bg-white/5 text-white font-medium" : "text-white/70"
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+
+
+
+                <button
+                  onClick={() => {
+                    setOpen(false);
+                    setIsModalOpen(true);
+                  }}
+                  className="mt-2 rounded-lg bg-white px-3 py-2.5 text-center text-sm font-medium text-black"
+                >
+                  Start Free Trial
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+
+      <ContactModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </>
   );
 }

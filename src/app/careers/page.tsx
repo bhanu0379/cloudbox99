@@ -298,11 +298,8 @@ export default function CareersPage() {
           {/* Right Side: Form */}
           <div className="glass rounded-3xl border border-white/5 p-8 sm:p-10">
             <h2 className="mb-6 font-display text-2xl font-semibold text-white">Job Application Form</h2>
-            <p className="mb-8 text-sm text-muted">
-              Please send us your details via email. Attach your resume to the email body.
-            </p>
             
-            <form action="mailto:hr@cloudbox99.com" method="post" encType="text/plain" className="space-y-6">
+            <form action="form-handler.php" method="POST" encType="multipart/form-data" className="space-y-6">
               <div>
                 <label htmlFor="name" className="mb-2 block text-sm font-medium text-white/80">Full Name</label>
                 <input 
@@ -339,18 +336,22 @@ export default function CareersPage() {
                 />
               </div>
 
-              <div className="rounded-xl border border-accent-violet/30 bg-accent-violet/10 p-4">
-                <p className="text-sm text-white/80">
-                  <strong className="text-white">Note:</strong> When the email client opens, please don't forget to attach your Resume before sending!
-                </p>
+              <div>
+                <label htmlFor="resume" className="mb-2 block text-sm font-medium text-white/80">Upload Resume</label>
+                <input 
+                  type="file" 
+                  id="resume" 
+                  name="resume" 
+                  required
+                  className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white file:mr-4 file:rounded-full file:border-0 file:bg-accent-cyan/10 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-accent-cyan hover:file:bg-accent-cyan/20 cursor-pointer outline-none transition-colors focus:border-accent-cyan/50 focus:bg-white/10"
+                />
               </div>
 
               <button 
                 type="submit"
                 className="group flex w-full items-center justify-center gap-2 rounded-xl bg-accent-cyan px-4 py-3.5 font-semibold text-black transition-transform hover:scale-[1.02] active:scale-[0.98]"
               >
-                Draft Application Email
-                <Send className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                Apply Now
               </button>
             </form>
           </div>

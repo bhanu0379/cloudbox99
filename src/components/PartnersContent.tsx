@@ -1,184 +1,210 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
   Wallet,
   Headset,
   Tag,
-  Megaphone,
   ShieldCheck,
   Layers,
-  ClipboardList,
-  UserCheck,
-  Rocket,
-  TrendingUp,
+  Zap,
+  BarChart3,
+  Lock,
   Server,
   Briefcase,
   Store,
+  Cloud,
+  Code2,
+  Settings2,
   Plus,
   CheckCircle2,
+  X,
 } from "lucide-react";
 import { SectionHeading } from "./SectionHeading";
 import { cn } from "@/lib/cn";
 
 const BENEFITS = [
   {
-    icon: Wallet,
-    title: "Recurring revenue",
+    icon: Server,
+    title: "Enterprise Infrastructure",
     description:
-      "Earn on every client you bring to Cloudbox99, for as long as they stay with us — not just a one-time payout.",
-  },
-  {
-    icon: Headset,
-    title: "Dedicated partner support",
-    description:
-      "A real point of contact for partner deals and technical questions — not a shared support queue.",
+      "Give your clients access to enterprise-grade cloud hosting, VPS, dedicated servers, and managed services — without building it yourself.",
   },
   {
     icon: Tag,
-    title: "Co-branded or white-label",
+    title: "White-Label Opportunities",
     description:
-      "Resell under your own brand, co-branded with Cloudbox99, or a mix — the choice is yours.",
+      "Resell under your own brand with co-branded or fully white-label options available for eligible partners.",
   },
   {
-    icon: Megaphone,
-    title: "Sales & marketing enablement",
+    icon: Wallet,
+    title: "Recurring Revenue",
     description:
-      "Battlecards, case studies, and co-marketing support to help you position and close deals.",
+      "Earn predictable, subscription-based income on every active client — not just a one-time commission.",
   },
   {
-    icon: ShieldCheck,
-    title: "Deal registration & protection",
+    icon: Headset,
+    title: "Dedicated Partner Support",
     description:
-      "Register your deals and we'll protect your pipeline — no undercutting, no channel conflict.",
+      "A real point of contact for partner deals, technical questions, and onboarding — not a shared support queue.",
   },
   {
     icon: Layers,
-    title: "The full catalog, one partnership",
+    title: "Flexible Partner Models",
     description:
-      "Offer VPS, dedicated servers, cloud storage, backup, managed IT, and 24/7 SOC — all under one agreement.",
-  },
-];
-
-const STEPS = [
-  {
-    icon: ClipboardList,
-    title: "Apply",
-    description: "Tell us about your business and the clients you serve.",
+      "Choose the model that works for your business — referral, reseller, or fully white-labeled deployment.",
   },
   {
-    icon: UserCheck,
-    title: "Get onboarded",
-    description: "We'll walk you through the catalog, partner pricing, and how deal registration works.",
+    icon: Zap,
+    title: "Fast Service Deployment",
+    description:
+      "Provision and deliver cloud services quickly so you can respond to client needs without delays.",
   },
   {
-    icon: Rocket,
-    title: "Register & sell",
-    description: "Register your deals, quote clients, and close with our team backing you up.",
+    icon: BarChart3,
+    title: "Scalable Solutions",
+    description:
+      "Offer the full catalog — cloud storage, backup, cybersecurity, managed IT — and scale your portfolio as your business grows.",
   },
   {
-    icon: TrendingUp,
-    title: "Earn & scale",
-    description: "Get paid on active clients and grow your book with dedicated partner support.",
+    icon: Lock,
+    title: "Trusted Security",
+    description:
+      "Back your clients with 24/7 SOC monitoring, managed firewalls, data encryption, and enterprise-grade cybersecurity.",
   },
 ];
 
 const PROFILES = [
   {
     icon: Server,
-    title: "Managed Service Providers",
+    title: "Managed Service Providers (MSPs)",
     description:
       "Extend your stack with enterprise infrastructure and security services without building it in-house.",
   },
   {
     icon: Briefcase,
-    title: "Agencies",
+    title: "IT Solution Providers",
+    description:
+      "Add cloud hosting, backup, and managed IT to your existing service offerings with ease.",
+  },
+  {
+    icon: Cloud,
+    title: "Hosting Providers",
+    description:
+      "Expand your hosting catalog with VPS, dedicated servers, cloud storage, and enterprise services.",
+  },
+  {
+    icon: Code2,
+    title: "Cloud Consultants",
+    description:
+      "Deliver complete cloud transformation projects backed by enterprise infrastructure and managed services.",
+  },
+  {
+    icon: Store,
+    title: "Digital Agencies",
     description:
       "Offer your clients reliable hosting and cybersecurity as part of the packages you already sell.",
   },
   {
-    icon: Store,
-    title: "Resellers",
+    icon: Settings2,
+    title: "System Integrators",
     description:
-      "Build a hosting and infrastructure business on our platform, under your own brand.",
+      "Build and deliver integrated cloud and IT solutions for enterprise clients at scale.",
   },
 ];
 
 const FAQS = [
   {
-    q: "How does the partner program work?",
-    a: "You bring us the client — as a referral, a resale, or a fully white-labeled deployment — and we handle provisioning, delivery, and support behind the scenes. You stay the face of the relationship.",
+    q: "Who can join the Cloudbox99 Partner Program?",
+    a: "Our program is designed for MSPs, IT service providers, hosting companies, cloud consultants, digital agencies, and technology partners.",
   },
   {
-    q: "What's the commission structure?",
-    a: "Commission and margins depend on the services you sell and your volume, and are finalized during onboarding — we'll walk through the details when you apply rather than quote a blanket number here.",
+    q: "Is there any fee to join the partner program?",
+    a: "No. Joining is free, subject to approval.",
   },
   {
-    q: "Do I need technical expertise to become a partner?",
-    a: "No. Our team handles provisioning, monitoring, and support — you focus on the client relationship and the sale.",
+    q: "What solutions can I resell?",
+    a: "Cloud hosting, VPS, dedicated servers, cloud storage, backup, cybersecurity, and managed cloud services.",
   },
   {
-    q: "Can I white-label Cloudbox99's services?",
-    a: "Yes. Co-branded and fully white-label options are available depending on your partnership tier.",
+    q: "Do you offer white-label solutions?",
+    a: "Yes, for eligible partners.",
   },
   {
-    q: "Is there a minimum commitment to get started?",
-    a: "There's no fixed minimum. We'll talk through what makes sense for your business during onboarding.",
+    q: "Will I receive technical support?",
+    a: "Yes. We provide deployment, migration, and ongoing technical assistance.",
+  },
+  {
+    q: "How do partners earn recurring revenue?",
+    a: "By reselling Cloudbox99 subscription-based services.",
+  },
+  {
+    q: "How long does partner approval take?",
+    a: "Typically 2–5 business days.",
+  },
+  {
+    q: "How do I become a Cloudbox99 Partner?",
+    a: "Complete the application form and our team will guide you through onboarding after approval.",
   },
 ];
 
 export function PartnersContent() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isModalOpen]);
+
   return (
     <>
-      <Hero />
+      <Hero onOpenContact={() => setIsModalOpen(true)} />
       <Benefits />
-      <HowItWorks />
       <Profiles />
       <PartnerFaq />
-      <PartnerContactForm />
+      <AnimatePresence>
+        {isModalOpen && <PartnerContactModal onClose={() => setIsModalOpen(false)} />}
+      </AnimatePresence>
     </>
   );
 }
 
-function Hero() {
+function Hero({ onOpenContact }: { onOpenContact: () => void }) {
   return (
     <section id="top" className="relative overflow-hidden pt-40 pb-24">
-      <div className="pointer-events-none absolute inset-0 bg-grid opacity-70" />
       <div
-        className="pointer-events-none absolute left-1/2 top-[-10%] h-[480px] w-[480px] -translate-x-1/2 rounded-full opacity-30 blur-[110px]"
-        style={{ background: "radial-gradient(circle, var(--accent-violet), transparent 70%)" }}
+        className="pointer-events-none absolute left-1/2 top-0 h-[400px] w-[600px] -translate-x-1/2 rounded-full opacity-20 blur-[120px]"
+        style={{ background: "radial-gradient(ellipse, var(--accent-cyan), transparent 70%)" }}
       />
 
-      <div className="relative mx-auto max-w-4xl px-6 text-center">
+      <div className="relative mx-auto max-w-3xl px-6 text-center">
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <span className="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] uppercase tracking-widest text-accent-cyan">
-            Channel Sales Partner
+            Get Started
           </span>
           <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-6xl">
-            Built for partners delivering cloud and IT solutions
+            Ready to Grow with Cloudbox99?
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-base text-muted sm:text-lg">
-            Whether you&apos;re an MSP, an agency, or a reseller, partner with
-            Cloudbox99 to offer enterprise cloud infrastructure and
-            cybersecurity under your relationship — backed by our team,
-            recurring revenue, and dedicated partner support.
+            Become a trusted Cloudbox99 Partner and deliver enterprise-grade cloud and cybersecurity solutions while
+            building predictable recurring revenue.
           </p>
           <div className="mt-9 flex flex-col items-center justify-center gap-3.5 sm:flex-row">
-            <a
-              href="#apply"
+            <button
+              onClick={onOpenContact}
               className="group glow-cyan inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-transform hover:scale-[1.03]"
             >
-              Apply to partner
+              Contact Our Team
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </a>
-            <a
-              href="#how-it-works"
-              className="glass inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
-            >
-              See how it works
-            </a>
+            </button>
           </div>
         </motion.div>
       </div>
@@ -191,19 +217,19 @@ function Benefits() {
     <section className="relative py-24">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading
-          eyebrow="Why partner with us"
-          title="Everything you need to sell cloud infrastructure, without building it"
-          description="A partnership designed around recurring revenue, real support, and a catalog you can actually sell."
+          eyebrow="Why Partner with Cloudbox99"
+          title="Everything you need to grow your cloud business"
+          description="A partnership built around recurring revenue, real support, and a catalog you can confidently sell."
         />
 
-        <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {BENEFITS.map((b, i) => (
             <motion.div
               key={b.title}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
+              transition={{ duration: 0.5, delay: (i % 4) * 0.08 }}
               className="glass rounded-2xl p-6"
             >
               <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5">
@@ -219,54 +245,28 @@ function Benefits() {
   );
 }
 
-function HowItWorks() {
-  return (
-    <section id="how-it-works" className="relative py-24">
-      <div className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
-      <div className="relative mx-auto max-w-7xl px-6">
-        <SectionHeading eyebrow="How it works" title="From application to active partner" />
-
-        <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {STEPS.map((step, i) => (
-            <motion.div
-              key={step.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="relative rounded-2xl border border-white/[0.06] bg-surface p-6"
-            >
-              <span className="font-mono text-xs text-accent-violet">0{i + 1}</span>
-              <div className="mt-3 flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5">
-                <step.icon className="h-5 w-5 text-accent-cyan" />
-              </div>
-              <h3 className="mt-4 font-display text-base font-semibold text-white">{step.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{step.description}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Profiles() {
   return (
     <section className="relative py-24">
-      <div className="mx-auto max-w-7xl px-6">
-        <SectionHeading eyebrow="Who this is for" title="Built for the partners already selling to these clients" />
+      <div className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
+      <div className="relative mx-auto max-w-7xl px-6">
+        <SectionHeading
+          eyebrow="Who this is for"
+          title="Built for MSPs, IT providers, and cloud businesses"
+          description="The Cloudbox99 Partner Program is open to a wide range of technology and service businesses."
+        />
 
-        <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-3">
+        <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {PROFILES.map((p, i) => (
             <motion.div
               key={p.title}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="glass rounded-2xl p-7 text-center"
+              transition={{ duration: 0.5, delay: (i % 3) * 0.1 }}
+              className="glass rounded-2xl p-7"
             >
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5">
                 <p.icon className="h-5 w-5 text-accent-violet" />
               </div>
               <h3 className="mt-5 font-display text-base font-semibold text-white">{p.title}</h3>
@@ -326,7 +326,7 @@ function PartnerFaq() {
   );
 }
 
-function PartnerContactForm() {
+function PartnerContactModal({ onClose }: { onClose: () => void }) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -336,57 +336,74 @@ function PartnerContactForm() {
   }
 
   return (
-    <section id="apply" className="relative py-24">
-      <div className="mx-auto max-w-2xl px-6">
-        <div className="glass overflow-hidden rounded-3xl p-8 sm:p-12">
-          <SectionHeading
-            eyebrow="Apply"
-            title="Become a channel partner"
-            description="Tell us a bit about your business — we'll follow up to talk through fit and next steps."
-          />
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+    >
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+      <motion.div
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.95, opacity: 0 }}
+        className="glass relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl p-6 sm:p-10 shadow-2xl"
+      >
+        <button
+          onClick={onClose}
+          className="absolute right-6 top-6 text-muted hover:text-white transition-colors"
+        >
+          <X className="h-6 w-6" />
+        </button>
 
-          <div className="mt-10">
-            {status === "sent" ? (
-              <div className="flex min-h-[220px] flex-col items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-10 text-center">
-                <CheckCircle2 className="h-10 w-10 text-accent-cyan" />
-                <h3 className="font-display text-lg font-semibold text-white">Application received</h3>
-                <p className="text-sm text-muted">
-                  Thanks — our partnerships team will follow up shortly.
-                </p>
+        <SectionHeading
+          eyebrow="Apply"
+          title="Become a Cloudbox99 Partner"
+          description="Join a partner ecosystem built for MSPs, IT providers, hosting companies, cloud consultants, and digital agencies. Complete the application form and our partnership team will review your submission. Once approved, we'll help you get started with onboarding, technical guidance, and the resources needed to grow your cloud business."
+        />
+
+        <div className="mt-10">
+          {status === "sent" ? (
+            <div className="flex min-h-[220px] flex-col items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/[0.02] p-10 text-center">
+              <CheckCircle2 className="h-10 w-10 text-accent-cyan" />
+              <h3 className="font-display text-lg font-semibold text-white">Application received</h3>
+              <p className="text-sm text-muted">
+                Thanks — our partnerships team will review your submission and follow up shortly.
+              </p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <PartnerField label="Name" name="name" placeholder="Jane Doe" required />
+              <PartnerField label="Company" name="company" placeholder="Acme Partners" required />
+              <PartnerField label="Work email" name="email" type="email" placeholder="jane@company.com" required />
+              <div>
+                <label htmlFor="message" className="mb-1.5 block text-xs font-medium text-muted">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows={4}
+                  placeholder="Tell us about your business..."
+                  className="w-full resize-none rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-muted/60 outline-none transition-colors focus:border-accent-cyan/50"
+                />
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                <PartnerField label="Name" name="name" placeholder="Jane Doe" required />
-                <PartnerField label="Company" name="company" placeholder="Acme Partners" required />
-                <PartnerField label="Work email" name="email" type="email" placeholder="jane@company.com" required />
-                <div>
-                  <label htmlFor="message" className="mb-1.5 block text-xs font-medium text-muted">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={4}
-                    placeholder="Tell us about your business..."
-                    className="w-full resize-none rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-muted/60 outline-none transition-colors focus:border-accent-cyan/50"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  disabled={status === "sending"}
-                  className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-transform hover:scale-[1.02] disabled:opacity-60"
-                >
-                  {status === "sending" ? "Submitting..." : "Submit application"}
-                  {status !== "sending" && <ArrowRight className="h-4 w-4" />}
-                </button>
-              </form>
-            )}
-          </div>
+              <button
+                type="submit"
+                disabled={status === "sending"}
+                className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-transform hover:scale-[1.02] disabled:opacity-60"
+              >
+                {status === "sending" ? "Submitting..." : "Apply to Become a Partner"}
+                {status !== "sending" && <ArrowRight className="h-4 w-4" />}
+              </button>
+            </form>
+          )}
         </div>
-      </div>
-    </section>
+      </motion.div>
+    </motion.div>
   );
 }
+
 
 function PartnerField({
   label,
