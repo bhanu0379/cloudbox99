@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { cn } from "@/lib/cn";
+import logoFullDark from "../../public/logo-full-dark.png";
+import logoMarkWhite from "../../public/logo-mark-white.png";
 
 export function Logo({
   className,
@@ -11,7 +13,7 @@ export function Logo({
   if (tagline) {
     return (
       <Image
-        src="/logo-full-dark.png"
+        src={logoFullDark}
         alt="Cloudbox99 — Empowering Cloud, Securely"
         width={681}
         height={466}
@@ -24,7 +26,7 @@ export function Logo({
   return (
     <div className={cn("flex items-center gap-2.5 select-none", className)}>
       <Image
-        src="/logo-mark-white.png"
+        src={logoMarkWhite}
         alt=""
         width={354}
         height={312}
