@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
 import { SectionHeading } from "./SectionHeading";
+import { ContactModal } from "./ContactModal";
 import { cn } from "@/lib/cn";
 
 const PLANS = [
@@ -51,6 +53,9 @@ const PLANS = [
 ];
 
 export function Pricing() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState("");
+
   return (
     <section id="pricing" className="relative py-28">
       <div className="mx-auto max-w-7xl px-6">
@@ -93,8 +98,13 @@ export function Pricing() {
                 ))}
               </ul>
 
-              <a
-                href="#contact"
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setSelectedPlan(plan.name);
+                  setIsModalOpen(true);
+                }}
                 className={cn(
                   "group mt-8 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-transform hover:scale-[1.02]",
                   plan.highlighted
@@ -104,10 +114,15 @@ export function Pricing() {
               >
                 {plan.cta}
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-              </a>
+              </button>
             </motion.div>
           ))}
         </div>
+        <ContactModal 
+          isOpen={isModalOpen} 
+          onClose={() => setIsModalOpen(false)} 
+          defaultNeed={selectedPlan}
+        />
       </div>
     </section>
   );

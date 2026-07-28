@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, ShieldCheck } from "lucide-react";
+import { ContactModal } from "./ContactModal";
 
 const STATS = [
   { value: "99.9%", label: "Uptime SLA" },
@@ -10,6 +12,8 @@ const STATS = [
 ];
 
 export function Hero() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <section id="top" className="relative overflow-hidden pt-40 pb-28 md:pt-48 md:pb-36">
       {/* Background layers */}
@@ -56,13 +60,13 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.25 }}
           className="mt-10 flex flex-col items-center justify-center gap-3.5 sm:flex-row"
         >
-          <a
-            href="#contact"
+          <button
+            onClick={() => setIsModalOpen(true)}
             className="group glow-cyan inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-transform hover:scale-[1.03]"
           >
             Start your 7-day free trial
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </a>
+          </button>
           <a
             href="#services"
             className="glass inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
@@ -87,6 +91,11 @@ export function Hero() {
         </motion.dl>
 
       </div>
+      
+      <ContactModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </section>
   );
 }

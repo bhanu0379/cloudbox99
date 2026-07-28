@@ -89,7 +89,7 @@ export function Footer() {
             <Logo tagline />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted">
               Enterprise cloud infrastructure and cybersecurity — VPS,
-              dedicated servers, storage, backup, managed IT, and a 24/7 SOC —
+              dedicated servers, storage, backup, managed IT, and a 24/7 Service —
               built for reliability and scale.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">

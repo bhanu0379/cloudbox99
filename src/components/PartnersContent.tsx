@@ -359,6 +359,18 @@ function PartnerContactForm() {
                 <PartnerField label="Name" name="name" placeholder="Jane Doe" required />
                 <PartnerField label="Company" name="company" placeholder="Acme Partners" required />
                 <PartnerField label="Work email" name="email" type="email" placeholder="jane@company.com" required />
+                <div>
+                  <label htmlFor="message" className="mb-1.5 block text-xs font-medium text-muted">
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={4}
+                    placeholder="Tell us about your business..."
+                    className="w-full resize-none rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-muted/60 outline-none transition-colors focus:border-accent-cyan/50"
+                  />
+                </div>
                 <button
                   type="submit"
                   disabled={status === "sending"}
