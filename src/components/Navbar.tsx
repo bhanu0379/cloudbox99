@@ -87,6 +87,26 @@ export function Navbar() {
     }
   };
 
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (!href.includes("#")) return;
+
+    const linkHash = href.split("#")[1];
+    // pathname may include the basePath (e.g. /cloudbox99), so check it ends with / or is /
+    const isHomePage = pathname === "/" || pathname.endsWith("/cloudbox99") || pathname.endsWith("/cloudbox99/");
+
+    if (isHomePage) {
+      e.preventDefault();
+      const element = document.getElementById(linkHash);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      window.history.pushState(null, "", href);
+      setOpen(false);
+    }
+  };
+
   const isCompanyActive = COMPANY_LINKS.some((l) => pathname === l.href);
   const activeCompanyLabel = COMPANY_LINKS.find((l) => pathname === l.href)?.label ?? "Company";
 
@@ -104,7 +124,11 @@ export function Navbar() {
             scrolled ? "glass shadow-lg shadow-black/20" : "border border-transparent"
           )}
         >
-          <Link href="/#top" className="flex items-center">
+          <Link 
+            href="/#top" 
+            className="flex items-center"
+            onClick={(e) => handleScroll(e, "/#top")}
+          >
             <Logo />
           </Link>
 
@@ -113,6 +137,7 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={(e) => handleScroll(e, link.href)}
                 className={cn(
                   "whitespace-nowrap text-sm transition-colors hover:text-white",
                   isActive(link.href) ? "text-white" : "text-muted"
@@ -186,6 +211,7 @@ export function Navbar() {
           <div className="hidden items-center gap-3 lg:flex">
             <Link
               href="/#contact"
+              onClick={(e) => handleScroll(e, "/#contact")}
               className="group inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-white px-4 py-2 text-sm font-medium text-black transition-transform hover:scale-[1.03]"
             >
               Start Free Trial
@@ -217,7 +243,10 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  onClick={() => setOpen(false)}
+                  onClick={(e) => {
+                    handleScroll(e, link.href);
+                    setOpen(false);
+                  }}
                   className={cn(
                     "rounded-lg px-3 py-2.5 text-sm hover:bg-white/5 hover:text-white",
                     isActive(link.href) ? "bg-white/5 text-white" : "text-muted"
@@ -248,7 +277,10 @@ export function Navbar() {
 
               <Link
                 href="/#contact"
-                onClick={() => setOpen(false)}
+                onClick={(e) => {
+                  handleScroll(e, "/#contact");
+                  setOpen(false);
+                }}
                 className="mt-2 rounded-lg bg-white px-3 py-2.5 text-center text-sm font-medium text-black"
               >
                 Start Free Trial

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Server,
@@ -13,6 +14,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { SectionHeading } from "./SectionHeading";
+import { ContactModal } from "./ContactModal";
 
 const SERVICES = [
   {
@@ -75,6 +77,9 @@ const SERVICES = [
 ];
 
 export function Services() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState("");
+
   return (
     <section id="services" className="relative py-28">
       <div className="mx-auto max-w-7xl px-6">
@@ -117,15 +122,35 @@ export function Services() {
                   </span>
                 ))}
               </div>
-              <a
-                href={service.href ?? "#contact"}
-                className="relative mt-5 inline-flex items-center gap-1 text-sm font-medium text-white opacity-0 transition-opacity group-hover:opacity-100"
-              >
-                {service.href ? "Learn more" : "Get a quote"} <ArrowUpRight className="h-3.5 w-3.5" />
-              </a>
+              {service.href ? (
+                <a
+                  href={service.href}
+                  className="relative mt-5 inline-flex items-center gap-1 text-sm font-medium text-white opacity-0 transition-opacity group-hover:opacity-100"
+                >
+                  Learn more <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
+              ) : (
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setSelectedService(service.title);
+                    setIsModalOpen(true);
+                  }}
+                  className="relative mt-5 inline-flex items-center gap-1 text-sm font-medium text-white opacity-0 transition-opacity group-hover:opacity-100 text-left"
+                >
+                  Get a quote <ArrowUpRight className="h-3.5 w-3.5" />
+                </button>
+              )}
             </motion.div>
           ))}
         </div>
+
+        <ContactModal 
+          isOpen={isModalOpen} 
+          onClose={() => setIsModalOpen(false)} 
+          defaultNeed={selectedService}
+        />
       </div>
     </section>
   );

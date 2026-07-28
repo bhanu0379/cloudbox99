@@ -57,7 +57,7 @@ export function Hero() {
           className="mt-10 flex flex-col items-center justify-center gap-3.5 sm:flex-row"
         >
           <a
-            href="#pricing"
+            href="#contact"
             className="group glow-cyan inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-transform hover:scale-[1.03]"
           >
             Start your 7-day free trial
