@@ -5,6 +5,12 @@ import { caseStudies } from "@/data/caseStudies";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
+export async function generateStaticParams() {
+  return caseStudies.map((study) => ({
+    id: study.id,
+  }));
+}
+
 export default async function CaseStudyDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const study = caseStudies.find((s) => s.id === id);
