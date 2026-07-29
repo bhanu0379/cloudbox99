@@ -50,7 +50,10 @@ const VALUES = [
   },
 ];
 
-const DIRECTORS = ["Chakradhar Yerneni", "Anand Teja Swaroop Yerneni"];
+const DIRECTORS = [
+  { name: "Chakradhar Yerneni", role: "CEO" },
+  { name: "Anand Teja Swaroop Yerneni", role: "Director" },
+];
 
 export function AboutContent() {
   return (
@@ -72,13 +75,10 @@ export function AboutContent() {
               About Us
             </span>
             <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.1] tracking-tight text-white sm:text-6xl">
-              Cloud infrastructure, run by people who pick up the phone
+              Cloud hosting with reliable infrastructure and responsive support.
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-base text-muted sm:text-lg">
-              Cloudbox99 is a Hyderabad-based cloud infrastructure and
-              cybersecurity company. We started as a small team offering VPS
-              hosting and grew — the same way our earliest clients did —
-              into a one-stop shop for infrastructure as a service (IaaS).
+              Cloudbox99 is a Hyderabad‑based cloud infrastructure provider offering infrastructure‑as‑a‑service (IaaS) through enterprise cloud hosting, VPS hosting, dedicated server hosting, cloud storage solutions, managed IT services, cyber security services and backup & disaster recovery within our enterprise cloud solutions.
             </p>
           </motion.div>
 
@@ -117,12 +117,7 @@ export function AboutContent() {
                 Our mission
               </h2>
               <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted">
-                We&apos;re dedicated to empowering businesses to reach their full
-                potential by leveraging robust IT infrastructure through an
-                infrastructure-as-a-service (IaaS) model — built on a
-                commitment to data security and customer satisfaction, so
-                startups, SMEs, and enterprises can scale with confidence in
-                the digital landscape.
+                We’re dedicated to helping businesses reach their full potential by leveraging robust IT infrastructure through an infrastructure‑as‑a‑service (IaaS) model, using enterprise cloud hosting, managed cloud hosting, VPS hosting, dedicated server hosting, cloud storage solutions, managed IT services, cyber security services and backup & disaster recovery so startups, SMEs and enterprises can scale with confidence.
               </p>
             </div>
           </motion.div>
@@ -132,7 +127,7 @@ export function AboutContent() {
 
       <Testimonials />
 
-      <section className="relative py-16">
+      {/* <section className="relative py-16">
         <div className="mx-auto max-w-7xl px-6">
           <SectionHeading
             eyebrow="What we stand for"
@@ -158,7 +153,7 @@ export function AboutContent() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="relative py-16">
         <div className="mx-auto max-w-4xl px-6">
@@ -176,23 +171,25 @@ export function AboutContent() {
               Led by the people who built it
             </h2>
             <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted">
-              Cloudbox99 Private Limited was incorporated in 2019 in
-              Hyderabad, Telangana, and is directed by:
+              Cloudbox99 Private Limited was incorporated in 2019 in Hyderabad, Telangana and is directed by Chakradhar Yerneni and Anand Teja Swaroop Yerneni.
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              {DIRECTORS.map((name) => (
+              {DIRECTORS.map((director) => (
                 <div
-                  key={name}
+                  key={director.name}
                   className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.02] px-4 py-3"
                 >
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-accent-cyan to-accent-violet text-xs font-bold text-black">
-                    {name
+                    {director.name
                       .split(" ")
                       .map((w) => w[0])
                       .slice(0, 2)
                       .join("")}
                   </div>
-                  <span className="text-sm font-medium text-white">{name}</span>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-medium text-white">{director.name}</span>
+                    <span className="text-xs text-muted">{director.role}</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -212,8 +209,7 @@ export function AboutContent() {
               Want to work with us?
             </h2>
             <p className="mx-auto mt-3 max-w-md text-sm text-muted sm:text-base">
-              Whether you need a single VPS or a fully managed, multi-region
-              footprint, our team is ready to help.
+              Our team can help you choose and run the right mix of enterprise cloud hosting, cloud storage solutions, managed IT services and backup & disaster recovery for your business.
             </p>
             <Link
               href="/#contact"

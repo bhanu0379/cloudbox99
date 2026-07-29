@@ -15,7 +15,7 @@ export function Hero() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <section id="top" className="relative overflow-hidden pt-40 pb-28 md:pt-48 md:pb-36">
+    <section id="top" className="relative overflow-hidden pt-20 pb-12 md:pt-28 md:pb-15 lg:pt-32 lg:pb-15">
       {/* Background layers */}
       <div className="pointer-events-none absolute inset-0 bg-grid" />
       <div className="pointer-events-none absolute inset-0 bg-noise" />
@@ -91,10 +91,10 @@ export function Hero() {
         </motion.dl>
 
       </div>
-      
-      <ContactModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+
+      <ContactModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
       />
     </section>
   );

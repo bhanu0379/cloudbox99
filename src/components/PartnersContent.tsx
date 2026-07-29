@@ -20,6 +20,7 @@ import {
   Settings2,
   Plus,
   CheckCircle2,
+  AlertCircle,
   X,
 } from "lucide-react";
 import { SectionHeading } from "./SectionHeading";
@@ -327,13 +328,41 @@ function PartnerFaq() {
 }
 
 function PartnerContactModal({ onClose }: { onClose: () => void }) {
-  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("sending");
-    window.setTimeout(() => setStatus("sent"), 900);
+    setErrorMsg("");
+
+    const form = e.currentTarget;
+    const data = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      company: (form.elements.namedItem("company") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+    };
+
+    try {
+      const res = await fetch("/partners.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json();
+      if (json.success) {
+        setStatus("sent");
+      } else {
+        setStatus("error");
+        setErrorMsg(json.message || "Failed to submit. Please try again.");
+      }
+    } catch {
+      setStatus("error");
+      setErrorMsg("Network error. Please try again.");
+    }
   }
+
 
   return (
     <motion.div
@@ -388,6 +417,14 @@ function PartnerContactModal({ onClose }: { onClose: () => void }) {
                   className="w-full resize-none rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-muted/60 outline-none transition-colors focus:border-accent-cyan/50"
                 />
               </div>
+
+              {status === "error" && (
+                <div className="flex items-center gap-2 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+                  <AlertCircle className="h-4 w-4 shrink-0" />
+                  {errorMsg}
+                </div>
+              )}
+
               <button
                 type="submit"
                 disabled={status === "sending"}
@@ -397,6 +434,7 @@ function PartnerContactModal({ onClose }: { onClose: () => void }) {
                 {status !== "sending" && <ArrowRight className="h-4 w-4" />}
               </button>
             </form>
+
           )}
         </div>
       </motion.div>

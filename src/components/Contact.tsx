@@ -21,7 +21,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="relative py-28">
+    <section id="contact" className="relative py-16">
       <div className="mx-auto max-w-7xl px-6">
         <div className="glass grid grid-cols-1 gap-14 overflow-hidden rounded-3xl p-8 sm:p-12 lg:grid-cols-2 lg:p-16">
           <div>

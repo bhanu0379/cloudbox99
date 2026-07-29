@@ -11,7 +11,7 @@ const ITEMS = [
 export function TrustMarquee() {
   const loop = [...ITEMS, ...ITEMS];
   return (
-    <div className="relative overflow-hidden border-y border-white/[0.06] bg-surface/60 py-4">
+    <div className="relative overflow-hidden border-y border-white/[0.06] bg-surface/60 h-8 flex items-center">
       <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-background to-transparent" />
       <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-background to-transparent" />
       <div className="animate-marquee flex w-max gap-10">

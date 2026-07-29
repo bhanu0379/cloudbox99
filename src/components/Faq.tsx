@@ -9,31 +9,31 @@ import { cn } from "@/lib/cn";
 const FAQS = [
   {
     q: "Why Choose Cloudbox99?",
-    a: "99.9% uptime, 24x7 support, enterprise infrastructure, scalability, security",
+    a: "Reliable cloud hosting with 99.9% uptime, enterprise-grade security, and expert support whenever you need it.",
   },
   {
     q: "What's included in the 7-day free trial?",
-    a: "Full access to Cloudbox99's VPS hosting platform for 7 days — no credit card lock-in required to evaluate performance, uptime, and support before you commit.",
+    a: "Experience Cloudbox99 with a 7-day free trial and explore our secure, high-performance hosting risk free.",
   },
   {
     q: "What's the difference between VPS and dedicated servers?",
-    a: "VPS hosting gives you a virtualized slice of shared hardware that's fast to provision and easy to scale. Dedicated servers give you an entire physical machine to yourself for workloads that need guaranteed, uncontended performance.",
+    a: "Choose between flexible VPS hosting or powerful dedicated servers tailored to your business needs and growth.",
   },
   {
     q: "Do you offer backup and disaster recovery?",
-    a: "Yes. Our cloud backup and disaster recovery service automates snapshots of your infrastructure and enables fast restores, so you're covered if something goes wrong.",
+    a: "Protect your business with reliable backups and fast disaster recovery to keep your data safe.",
   },
   {
     q: "What does the Security Operations Center actually monitor?",
-    a: "Our SOC provides 24/7 monitoring, data encryption, managed firewalls, and real-time threat detection across your environment — with our engineers responding to incidents as they happen.",
+    a: "Our 24×7 Security Operations Center proactively monitors your infrastructure to keep your business secure.",
   },
   {
     q: "Where are your data centers located?",
-    a: "Cloudbox99 operates across multiple regions to provide performance, redundancy, and compliance with regional regulations — so you can deploy closer to your users.",
+    a: "Our primary data center is located in Hyderabad, India.",
   },
   {
     q: "How does pricing work?",
-    a: "Standard VPS infrastructure is billed at a predictable rate. Dedicated servers, managed IT, and SOC services are quoted as custom plans based on your requirements.",
+    a: "Cloudbox99 offers transparent and competitive pricing with no hidden charges.",
   },
 ];
 
@@ -41,7 +41,7 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="relative py-28">
+    <section id="faq" className="relative py-16">
       <div className="mx-auto max-w-4xl px-6">
         <SectionHeading eyebrow="FAQ" title="Questions, answered" />
 

@@ -82,8 +82,8 @@ const COLUMNS = [
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-white/[0.06] py-16">
-      <div className="mx-auto max-w-7xl px-6">
+    <footer className="relative border-t border-white/[0.06] py-16 pl-6">
+      <div className="mx-auto max-w-7xl md:px-20 lg:px-20">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-[1.3fr_1fr_1fr]">
           <div>
             <Logo tagline />

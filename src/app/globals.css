@@ -61,6 +61,23 @@ body {
   border-radius: 999px;
 }
 
+/* Horizontal carousel scrollbar — cyan thumb only */
+.scrollbar-cyan {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-cyan) transparent;
+}
+.scrollbar-cyan::-webkit-scrollbar {
+  height: 4px;
+  width: auto;
+}
+.scrollbar-cyan::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-cyan::-webkit-scrollbar-thumb {
+  background: var(--accent-cyan);
+  border-radius: 999px;
+}
+
 /* Animated grid backdrop */
 .bg-grid {
   background-image:

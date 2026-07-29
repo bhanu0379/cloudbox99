@@ -4,23 +4,20 @@ import { motion } from "framer-motion";
 import { Eye, Lock, Flame, ScanEye, ArrowRight } from "lucide-react";
 
 const PILLARS = [
-  { icon: Eye, label: "24/7 Monitoring", description: "Round-the-clock visibility across every endpoint and workload." },
+  { icon: Eye, label: "24/7 Monitoring", description: "Consistent visibility of all endpoints and workloads around the clock." },
   { icon: Lock, label: "Data Encryption", description: "Data encrypted at rest and in transit, by default." },
-  { icon: Flame, label: "Managed Firewalls", description: "Perimeter and host-level firewalls tuned to your environment." },
+  { icon: Flame, label: "Managed Firewalls", description: "Tuning firewalls at perimeter and host level to your environment." },
   { icon: ScanEye, label: "Threat Detection", description: "Real-time detection and response from our SOC team." },
 ];
 
 const CONSULTING_SERVICES = [
   "Vulnerability Assessment",
   "Penetration Testing",
-  "Data Loss Prevention (DLP)",
-  "Email Security",
-  "MDR / XDR",
 ];
 
 export function Security() {
   return (
-    <section id="security" className="relative overflow-hidden py-28">
+    <section id="security" className="relative overflow-hidden py-16">
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-60" />
       <div className="mx-auto max-w-7xl px-6">
         <div className="glass relative grid grid-cols-1 gap-14 overflow-hidden rounded-3xl p-8 sm:p-12 lg:grid-cols-2 lg:items-center lg:p-16">
@@ -37,12 +34,10 @@ export function Security() {
             className="relative"
           >
             <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-              A SOC team watching your infrastructure, always.
+              A SOC team always keeping watch over your infrastructure
             </h2>
             <p className="mt-4 max-w-md text-base text-muted">
-              Cloudbox99 pairs infrastructure with a dedicated Security Operations
-              Center — so monitoring, threat detection, and incident response are
-              part of the platform, not an add-on you have to build yourself.
+              Cloudbox99's enterprise-grade infrastructure is supported by a dedicated Security Operations Centre (SOC) for 24/7 monitoring, proactive threat detection and rapid incident response.
             </p>
 
             <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -77,7 +72,7 @@ export function Security() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7 }}
-            className="relative mx-auto flex h-72 w-72 items-center justify-center sm:h-80 sm:w-80"
+            className="relative mx-auto flex h-72 w-full max-w-xs items-center justify-center sm:h-80 sm:w-80"
           >
             {[0, 1, 2].map((ring) => (
               <span
