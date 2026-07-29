@@ -42,7 +42,7 @@ const SERVICES = [
   },
   {
     icon: Camera,
-    title: "CCTV Cloud Storage",
+    title: "EyeCloud",
     description:
       "Encrypted cloud storage purpose-built for continuous CCTV footage and compliance.",
     tags: ["Real-time backup", "Encrypted footage"],

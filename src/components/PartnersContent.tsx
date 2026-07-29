@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent, useEffect } from "react";
+import { useState, useRef, type FormEvent, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
@@ -22,6 +22,8 @@ import {
   CheckCircle2,
   AlertCircle,
   X,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { SectionHeading } from "./SectionHeading";
 import { cn } from "@/lib/cn";
@@ -119,7 +121,7 @@ const PROFILES = [
 const FAQS = [
   {
     q: "Who can join the Cloudbox99 Partner Program?",
-    a: "Our program is designed for MSPs, IT service providers, hosting companies, cloud consultants, digital agencies, and technology partners.",
+    a: "Our program is designed for MSPs, IT service and system integrators, hosting companies, ERP and cloud consultants, digital agencies, and technology partners.",
   },
   {
     q: "Is there any fee to join the partner program?",
@@ -214,8 +216,15 @@ function Hero({ onOpenContact }: { onOpenContact: () => void }) {
 }
 
 function Benefits() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const scroll = (dir: "left" | "right") => {
+    if (!scrollRef.current) return;
+    const w = scrollRef.current.firstElementChild?.clientWidth ?? 260;
+    scrollRef.current.scrollBy({ left: dir === "left" ? -(w + 20) : w + 20, behavior: "smooth" });
+  };
+
   return (
-    <section className="relative py-24">
+    <section className="relative py-16">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading
           eyebrow="Why Partner with Cloudbox99"
@@ -223,23 +232,37 @@ function Benefits() {
           description="A partnership built around recurring revenue, real support, and a catalog you can confidently sell."
         />
 
-        <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {BENEFITS.map((b, i) => (
-            <motion.div
-              key={b.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: (i % 4) * 0.08 }}
-              className="glass rounded-2xl p-6"
-            >
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5">
-                <b.icon className="h-5 w-5 text-accent-cyan" />
-              </div>
-              <h3 className="mt-5 font-display text-base font-semibold text-white">{b.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{b.description}</p>
-            </motion.div>
-          ))}
+        <div className="relative mt-16">
+          <button type="button" onClick={() => scroll("left")} aria-label="Scroll left"
+            className="absolute -left-1 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white backdrop-blur-sm sm:hidden">
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          <button type="button" onClick={() => scroll("right")} aria-label="Scroll right"
+            className="absolute -right-1 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white backdrop-blur-sm sm:hidden">
+            <ChevronRight className="h-4 w-4" />
+          </button>
+
+          <div
+            ref={scrollRef}
+            className="scrollbar-cyan flex snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-hidden scroll-smooth pb-4 px-[11%] sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4"
+          >
+            {BENEFITS.map((b, i) => (
+              <motion.div
+                key={b.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: (i % 4) * 0.08 }}
+                className="glass w-[78%] flex-shrink-0 snap-center rounded-2xl p-6 sm:w-auto sm:flex-shrink"
+              >
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5">
+                  <b.icon className="h-5 w-5 text-accent-cyan" />
+                </div>
+                <h3 className="mt-5 font-display text-base font-semibold text-white">{b.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{b.description}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -247,8 +270,15 @@ function Benefits() {
 }
 
 function Profiles() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const scroll = (dir: "left" | "right") => {
+    if (!scrollRef.current) return;
+    const w = scrollRef.current.firstElementChild?.clientWidth ?? 260;
+    scrollRef.current.scrollBy({ left: dir === "left" ? -(w + 20) : w + 20, behavior: "smooth" });
+  };
+
   return (
-    <section className="relative py-24">
+    <section className="relative py-16">
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-40" />
       <div className="relative mx-auto max-w-7xl px-6">
         <SectionHeading
@@ -257,23 +287,37 @@ function Profiles() {
           description="The Cloudbox99 Partner Program is open to a wide range of technology and service businesses."
         />
 
-        <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {PROFILES.map((p, i) => (
-            <motion.div
-              key={p.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: (i % 3) * 0.1 }}
-              className="glass rounded-2xl p-7"
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5">
-                <p.icon className="h-5 w-5 text-accent-violet" />
-              </div>
-              <h3 className="mt-5 font-display text-base font-semibold text-white">{p.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{p.description}</p>
-            </motion.div>
-          ))}
+        <div className="relative mt-16">
+          <button type="button" onClick={() => scroll("left")} aria-label="Scroll left"
+            className="absolute -left-1 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white backdrop-blur-sm sm:hidden">
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          <button type="button" onClick={() => scroll("right")} aria-label="Scroll right"
+            className="absolute -right-1 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white backdrop-blur-sm sm:hidden">
+            <ChevronRight className="h-4 w-4" />
+          </button>
+
+          <div
+            ref={scrollRef}
+            className="scrollbar-cyan flex snap-x snap-mandatory gap-5 overflow-x-auto overflow-y-hidden scroll-smooth pb-4 px-[11%] sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3"
+          >
+            {PROFILES.map((p, i) => (
+              <motion.div
+                key={p.title}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: (i % 3) * 0.1 }}
+                className="glass w-[78%] flex-shrink-0 snap-center rounded-2xl p-7 sm:w-auto sm:flex-shrink"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5">
+                  <p.icon className="h-5 w-5 text-accent-violet" />
+                </div>
+                <h3 className="mt-5 font-display text-base font-semibold text-white">{p.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{p.description}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

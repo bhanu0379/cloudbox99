@@ -16,10 +16,6 @@ const FAQS = [
     a: "Experience Cloudbox99 with a 7-day free trial and explore our secure, high-performance hosting risk free.",
   },
   {
-    q: "What's the difference between VPS and dedicated servers?",
-    a: "Choose between flexible VPS hosting or powerful dedicated servers tailored to your business needs and growth.",
-  },
-  {
     q: "Do you offer backup and disaster recovery?",
     a: "Protect your business with reliable backups and fast disaster recovery to keep your data safe.",
   },

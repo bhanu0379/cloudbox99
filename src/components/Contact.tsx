@@ -7,8 +7,8 @@ import { SectionHeading } from "./SectionHeading";
 
 const DETAILS = [
   { icon: Phone, label: "IN: +91 74167 20444" },
-  { icon: MapPin, label: "CBR Monte Carlo, 301 Kothaguda X Rds, Fl 1, Hyderabad, TS 500084, India" },
-  { icon: Mail, label: "cs@cloudbox99.com", href: "mailto:cs@cloudbox99.com" },
+  { icon: MapPin, label: "301, 1st Floor, CBR Monte Carlo, Kothaguda X Roads, Kondapur, Hyderabad, TS 500 084" },
+  { icon: Mail, label: "cs(at)cloudbox99.com" },
 ];
 
 export function Contact() {
@@ -33,23 +33,12 @@ export function Contact() {
             />
 
             <div className="mt-10 flex flex-col gap-4">
-              {DETAILS.map((item) =>
-                item.href ? (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="flex items-start gap-3 text-sm text-muted transition-colors hover:text-white"
-                  >
-                    <item.icon className="mt-0.5 h-4 w-4 shrink-0 text-accent-cyan" />
-                    {item.label}
-                  </a>
-                ) : (
-                  <div key={item.label} className="flex items-start gap-3 text-sm text-muted">
-                    <item.icon className="mt-0.5 h-4 w-4 shrink-0 text-accent-cyan" />
-                    {item.label}
-                  </div>
-                )
-              )}
+              {DETAILS.map((item) => (
+                <div key={item.label} className="flex items-start gap-3 text-sm text-muted">
+                  <item.icon className="mt-0.5 h-4 w-4 shrink-0 text-accent-cyan" />
+                  {item.label}
+                </div>
+              ))}
             </div>
           </div>
 

@@ -2,7 +2,7 @@ const ITEMS = [
   "VPS Hosting",
   "Dedicated Servers",
   "Cloud Storage",
-  "CCTV Cloud Storage",
+  "EyeCloud",
   "Cloud Backup & Recovery",
   "Managed IT Services",
   "Cybersecurity Consulting",

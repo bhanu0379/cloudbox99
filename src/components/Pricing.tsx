@@ -30,7 +30,7 @@ const VPS_PLANS = [
     cta: "Get Started",
   },
   {
-    name: "VPS MEDIUM",
+    name: "VPS Premium",
     tagline: "Ideal for growing businesses and applications.",
     price: "₹3,199",
     period: " /mo",

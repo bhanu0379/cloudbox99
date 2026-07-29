@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import { motion } from "framer-motion";
 import {
   Users, Globe, TrendingUp, HeartHandshake,
   Laptop, GraduationCap, Award, Zap,
-  Mail, Phone, Send, Briefcase, CheckCircle2
+  Mail, Phone, Send, Briefcase, CheckCircle2, ChevronLeft, ChevronRight
 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -89,7 +89,7 @@ const POSITIONS = [
     responsibilities: [
       "Develop and execute sales strategies to promote cloud solutions to potential clients.",
       "Identify and qualify leads through research, networking, and customer engagement.",
-      "Present and demonstrate Cloudbox99's cloud services, including storage, GPUs, and CCTV cloud storage.",
+      "Present and demonstrate Cloudbox99's cloud services, including storage, GPUs, and eye cloud storage.",
       "Build strong relationships with clients to understand their needs and provide tailored solutions.",
       "Collaborate with technical teams to ensure seamless customer onboarding and service delivery.",
       "Meet or exceed sales targets by closing deals and managing customer accounts.",
@@ -188,6 +188,13 @@ export default function CareersPage() {
   const [copiedPhone, setCopiedPhone] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const scroll = (dir: "left" | "right") => {
+    if (!scrollRef.current) return;
+    const w = scrollRef.current.firstElementChild?.clientWidth ?? 260;
+    scrollRef.current.scrollBy({ left: dir === "left" ? -(w + 20) : w + 20, behavior: "smooth" });
+  };
+
   const handleCopyPhone = () => {
     navigator.clipboard.writeText("+91 8978772727");
     setCopiedPhone(true);
@@ -229,27 +236,41 @@ export default function CareersPage() {
             <div className="mb-12 text-center">
               <h2 className="font-display text-3xl font-semibold text-white">Why Cloudbox99 for Your Career?</h2>
             </div>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {PERKS.map((perk, i) => (
-                <motion.div
-                  key={perk.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="group glass relative overflow-hidden rounded-2xl border border-white/5 p-6 hover:border-white/10"
-                >
-                  <div className="mb-4 inline-flex rounded-xl bg-accent-cyan/10 p-3 text-accent-cyan">
-                    <perk.icon className="h-6 w-6" />
-                  </div>
-                  <h3 className="mb-2 font-display text-lg font-semibold text-white">
-                    {perk.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-muted">
-                    {perk.description}
-                  </p>
-                </motion.div>
-              ))}
+            <div className="relative mt-12">
+              <button type="button" onClick={() => scroll("left")} aria-label="Scroll left"
+                className="absolute -left-1 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white backdrop-blur-sm sm:hidden">
+                <ChevronLeft className="h-4 w-4" />
+              </button>
+              <button type="button" onClick={() => scroll("right")} aria-label="Scroll right"
+                className="absolute -right-1 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white backdrop-blur-sm sm:hidden">
+                <ChevronRight className="h-4 w-4" />
+              </button>
+
+              <div
+                ref={scrollRef}
+                className="scrollbar-cyan flex snap-x snap-mandatory gap-6 overflow-x-auto overflow-y-hidden scroll-smooth pb-4 px-[11%] sm:grid sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4"
+              >
+                {PERKS.map((perk, i) => (
+                  <motion.div
+                    key={perk.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    className="group glass w-[78%] flex-shrink-0 snap-center relative overflow-hidden rounded-2xl border border-white/5 p-6 hover:border-white/10 sm:w-auto sm:flex-shrink"
+                  >
+                    <div className="mb-4 inline-flex rounded-xl bg-accent-cyan/10 p-3 text-accent-cyan">
+                      <perk.icon className="h-6 w-6" />
+                    </div>
+                    <h3 className="mb-2 font-display text-lg font-semibold text-white">
+                      {perk.title}
+                    </h3>
+                    <p className="text-sm leading-relaxed text-muted">
+                      {perk.description}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </section>
 
