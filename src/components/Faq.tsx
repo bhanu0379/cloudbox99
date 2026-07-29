@@ -9,27 +9,31 @@ import { cn } from "@/lib/cn";
 const FAQS = [
   {
     q: "Why Choose Cloudbox99?",
-    a: "Reliable cloud hosting with 99.9% uptime, enterprise-grade security, and expert support whenever you need it.",
+    a: "Cloudbox99 delivers reliable cloud hosting with enterprise-grade infrastructure, 99.9% uptime, and round-the-clock technical support. Our secure, scalable solutions are designed to keep your business running smoothly as it grows.",
   },
   {
     q: "What's included in the 7-day free trial?",
-    a: "Experience Cloudbox99 with a 7-day free trial and explore our secure, high-performance hosting risk free.",
+    a: "Start with a risk-free 7-day trial and experience our high-performance VPS or dedicated server solutions. Test your applications, evaluate performance, and explore our platform with no hidden charges.",
+  },
+  {
+    q: "What's the Difference Between VPS and Dedicated Servers?",
+    a: "VPS hosting offers a flexible and cost-effective solution for growing businesses, while dedicated servers provide exclusive hardware resources for maximum performance, security, and enterprise workloads.",
   },
   {
     q: "Do you offer backup and disaster recovery?",
-    a: "Protect your business with reliable backups and fast disaster recovery to keep your data safe.",
+    a: "Yes. We provide flexible backup solutions with scheduled backups, multiple restore points, and disaster recovery options to help protect your business from unexpected data loss and downtime.",
   },
   {
     q: "What does the Security Operations Center actually monitor?",
-    a: "Our 24×7 Security Operations Center proactively monitors your infrastructure to keep your business secure.",
+    a: "Our 24×7 Security Operations Center continuously monitors your infrastructure for suspicious activity, security threats, and unusual behavior. When potential risks are detected, our experts respond quickly to help protect your environment.",
   },
   {
     q: "Where are your data centers located?",
-    a: "Our primary data center is located in Hyderabad, India.",
+    a: "Our primary data center is strategically located in Hyderabad, India, delivering high availability, low latency, and reliable connectivity for businesses across the country and beyond.",
   },
   {
     q: "How does pricing work?",
-    a: "Cloudbox99 offers transparent and competitive pricing with no hidden charges.",
+    a: "Cloudbox99 offers transparent, competitive pricing with no hidden fees. Choose from flexible VPS and dedicated server plans that can scale with your business needs while keeping costs predictable.",
   },
 ];
 
@@ -50,6 +54,8 @@ export function Faq() {
                 className="overflow-hidden rounded-2xl border border-white/[0.06] bg-surface"
               >
                 <button
+                  type="button"
+                  aria-expanded={isOpen}
                   onClick={() => setOpen(isOpen ? null : i)}
                   className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
                 >
