@@ -6,7 +6,7 @@ import { Mail, Phone, MapPin, CheckCircle2, ArrowRight } from "lucide-react";
 import { SectionHeading } from "./SectionHeading";
 
 const DETAILS = [
-  { icon: Phone, label: "IN: +91 74167 20444" },
+  { icon: Phone, label: "IN: +91 7674959499" },
   { icon: MapPin, label: "301, 1st Floor, CBR Monte Carlo, Kothaguda X Roads, Kondapur, Hyderabad, TS 500 084" },
   { icon: Mail, label: "cs(at)cloudbox99.com" },
 ];
