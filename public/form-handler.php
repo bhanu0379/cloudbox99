@@ -1,4 +1,6 @@
 <?php
+header('Content-Type: application/json');
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -21,6 +23,12 @@ try {
     $mail->Timeout = 10; // Set timeout to prevent long waiting
     $mail->SMTPKeepAlive = true; // Keep connection open for batch emails
 
+    // Detect if PHP discarded POST data because the uploaded file exceeded `post_max_size`
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST) && empty($_FILES) && isset($_SERVER['CONTENT_LENGTH']) && $_SERVER['CONTENT_LENGTH'] > 0) {
+        echo json_encode(["error" => "File Too Large. The uploaded file exceeds the server limit. Please upload a smaller file (Max 1MB)."]);
+        exit;
+    }
+
     // Validate and sanitize form data
     $name = isset($_POST['name']) ? filter_var($_POST['name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : 'N/A';
     $email = isset($_POST['email']) ? filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) : '';
@@ -28,7 +36,8 @@ try {
 
     // Validate email
     if (!$email) {
-        die("Invalid email format.");
+        echo json_encode(["error" => "Invalid Email Format. Please provide a valid email address."]);
+        exit;
     }
 
     // Sender & Recipient
@@ -53,11 +62,13 @@ try {
         // 🔹 Limit File Size (1MB Max)
         $maxFileSize = 1 * 1024 * 1024; // 1MB
         if ($_FILES['resume']['size'] > $maxFileSize) {
-            die("File size exceeds 1MB limit.");
+            echo json_encode(["error" => "File size exceeds 1MB limit."]);
+            exit;
         }
 
         if (!in_array($file_extension, $allowed_extensions)) {
-            die("Invalid file type. Only PDF, DOC, and DOCX are allowed.");
+            echo json_encode(["error" => "Invalid file type. Only PDF, DOC, and DOCX are allowed."]);
+            exit;
         }
 
         // Attach file
@@ -66,37 +77,9 @@ try {
 
     // Send Email
     $mail->send();
-    echo '<div style="
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
-    font-family: Arial, sans-serif;">
-    <div style="
-        background-color: #d4edda;
-        color: #155724;
-        padding: 20px;
-        border-radius: 10px;
-        border: 1px solid #c3e6cb;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        max-width: 400px;">
-        <img src="https://cdn-icons-png.flaticon.com/512/845/845646.png" width="50" height="50" alt="Success">
-        <h2 style="margin-top: 10px;">Success!</h2>
-        <p>Your application has been submitted successfully.</p>
-        <a href="/" style="
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 15px;
-            background-color: #28a745;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;">Back to Home</a>
-    </div>
-</div>';
+    echo json_encode(["success" => true, "message" => "Your application has been submitted successfully."]);
 
 } catch (Exception $e) {
-    echo "Mailer Error: " . $mail->ErrorInfo;
+    echo json_encode(["error" => "Mailer Error: " . $mail->ErrorInfo]);
 }
 ?>

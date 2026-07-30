@@ -90,7 +90,10 @@ export function Navbar() {
       } else {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
-      window.history.pushState(null, "", href);
+      
+      // Removed pushState to keep the URL clean without the '#' hash
+      // window.history.pushState(null, "", href);
+      
       setOpen(false);
     }
   };

@@ -187,6 +187,7 @@ function JobPositionCard({ pos, i }: { pos: typeof POSITIONS[0], i: number }) {
 export default function CareersPage() {
   const [copiedPhone, setCopiedPhone] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const scroll = (dir: "left" | "right") => {
@@ -341,7 +342,32 @@ export default function CareersPage() {
               <div className="glass rounded-3xl border border-white/5 p-8 sm:p-10">
                 <h2 className="mb-6 font-display text-2xl font-semibold text-white">Job Application Form</h2>
 
-                <form action="/form-handler.php" method="POST" encType="multipart/form-data" className="space-y-6">
+                <form onSubmit={async (e) => {
+                  e.preventDefault();
+                  const form = e.currentTarget;
+                  const formData = new FormData(form);
+                  setStatus("sending");
+                  
+                  try {
+                    const res = await fetch("/form-handler.php", {
+                      method: "POST",
+                      body: formData,
+                    });
+                    
+                    const data = await res.json();
+                    
+                    if (data.success) {
+                      setStatus("success");
+                      form.reset();
+                    } else {
+                      setStatus("error");
+                      alert(data.error || "Something went wrong.");
+                    }
+                  } catch (err) {
+                    setStatus("error");
+                    alert("Failed to connect to the server. Please try again.");
+                  }
+                }} className="space-y-6">
                   <div>
                     <label htmlFor="name" className="mb-2 block text-sm font-medium text-white/80">Full Name</label>
                     <input
@@ -379,22 +405,32 @@ export default function CareersPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="resume" className="mb-2 block text-sm font-medium text-white/80">Upload Resume</label>
+                    <label htmlFor="resume" className="mb-2 block text-sm font-medium text-white/80">
+                      Upload Resume <span className="text-xs text-muted/60 ml-1">(Max 1MB, PDF/DOC/DOCX)</span>
+                    </label>
                     <input
                       type="file"
                       id="resume"
                       name="resume"
                       required
+                      accept=".pdf,.doc,.docx"
                       className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white file:mr-4 file:rounded-full file:border-0 file:bg-accent-cyan/10 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-accent-cyan hover:file:bg-accent-cyan/20 cursor-pointer outline-none transition-colors focus:border-accent-cyan/50 focus:bg-white/10"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="group flex w-full items-center justify-center gap-2 rounded-xl bg-accent-cyan px-4 py-3.5 font-semibold text-black transition-transform hover:scale-[1.02] active:scale-[0.98]"
+                    disabled={status === "sending"}
+                    className="group flex w-full items-center justify-center gap-2 rounded-xl bg-accent-cyan px-4 py-3.5 font-semibold text-black transition-transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:hover:scale-100"
                   >
-                    Apply Now
+                    {status === "sending" ? "Sending..." : status === "success" ? "Application Sent!" : "Apply Now"}
                   </button>
+                  
+                  {status === "success" && (
+                    <p className="text-center text-sm text-green-400 mt-2">
+                      Thank you for your application! We will be in touch shortly.
+                    </p>
+                  )}
                 </form>
               </div>
 

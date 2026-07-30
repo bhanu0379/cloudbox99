@@ -37,7 +37,7 @@ const SERVICES = [
     icon: Database,
     title: "Cloud Storage",
     description:
-      "Secure, AWS-powered cloud storage for backups, files and long-term data.",
+      "Secure, scalable cloud storage for backups, files, media, and long-term data retention",
     tags: ["High availability"],
   },
   {
