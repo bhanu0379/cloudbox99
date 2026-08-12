@@ -77,7 +77,6 @@ const COLUMNS = [
       { label: "About Us", href: "/about" },
       { label: "Contact", href: "/#contact" },
       { label: "Privacy Policy", href: "/privacy-policy" },
-      { label: "Cookie Policy", href: "/cookie-policy" },
     ],
   },
 ];
@@ -176,7 +175,7 @@ export function Footer() {
 
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-8 text-xs text-muted sm:flex-row">
           <p>© {new Date().getFullYear()} Cloudbox99. All rights reserved.</p>
-          <p>Terms and Conditions Apply</p>
+          <p>T&C Apply</p>
         </div>
       </div>
     </footer>
