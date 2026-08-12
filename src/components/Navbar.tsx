@@ -76,25 +76,27 @@ export function Navbar() {
   };
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (!href.includes("#")) return;
-
-    const linkHash = href.split("#")[1];
-    // pathname may include the basePath (e.g. /cloudbox99), so check it ends with / or is /
     const isHomePage = pathname === "/" || pathname.endsWith("/cloudbox99") || pathname.endsWith("/cloudbox99/");
 
     if (isHomePage) {
-      e.preventDefault();
-      const element = document.getElementById(linkHash);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      } else {
+      if (href === "/") {
+        e.preventDefault();
         window.scrollTo({ top: 0, behavior: "smooth" });
+        setOpen(false);
+        return;
       }
-      
-      // Removed pushState to keep the URL clean without the '#' hash
-      // window.history.pushState(null, "", href);
-      
-      setOpen(false);
+
+      if (href.includes("#")) {
+        e.preventDefault();
+        const linkHash = href.split("#")[1];
+        const element = document.getElementById(linkHash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+        setOpen(false);
+      }
     }
   };
 

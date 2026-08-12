@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { ContactModal } from "./ContactModal";
@@ -67,13 +68,13 @@ export function Hero() {
             Start your 7-day free trial
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </button>
-          <a
-            href="#services"
+          <Link
+            href="/#services"
             className="glass inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
           >
             <ShieldCheck className="h-4 w-4 text-accent-cyan" />
             Explore infrastructure
-          </a>
+          </Link>
         </motion.div>
 
         <motion.dl
