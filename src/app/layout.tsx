@@ -21,6 +21,8 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+import { CookieConsent } from "@/components/CookieConsent";
+
 export const metadata: Metadata = {
   title: "Cloudbox99 — Enterprise Cloud Infrastructure, Simplified",
   description:
@@ -60,6 +62,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground selection:bg-accent-violet">
         {children}
+        <CookieConsent />
       </body>
     </html>
   );

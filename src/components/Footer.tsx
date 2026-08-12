@@ -77,6 +77,7 @@ const COLUMNS = [
       { label: "About Us", href: "/about" },
       { label: "Contact", href: "/#contact" },
       { label: "Privacy Policy", href: "/privacy-policy" },
+      { label: "Cookie Policy", href: "/cookie-policy" },
     ],
   },
 ];

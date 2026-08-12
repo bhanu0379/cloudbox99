@@ -13,10 +13,10 @@ export default function PrivacyPolicyPage() {
       <Navbar />
       <main className="flex-1 pt-32 pb-24">
         <div className="mx-auto max-w-3xl px-6 lg:px-8">
-          <h1 className="font-display text-4xl font-semibold tracking-tight text-white sm:text-5xl mb-8">
+          <h1 className="font-display text-4xl font-semibold tracking-tight text-white sm:text-5xl mb-8 text-center">
             Privacy Policy
           </h1>
-          
+
           <div className="space-y-8 text-base/7 text-muted">
             <p>
               At Cloudbox99, your privacy is important to us. This Privacy Policy outlines how we collect, use,
@@ -60,7 +60,7 @@ export default function PrivacyPolicyPage() {
               <h2 className="text-xl font-semibold text-white mb-4">4. Your Rights</h2>
               <p className="mb-4">You have the right to:</p>
               <ul className="list-disc pl-6 space-y-2">
-                <li>Access, update, or delete your personal information by contacting us at <a href="mailto:cs@cloudbox99.com" className="text-white underline hover:no-underline">cs@cloudbox99.com</a></li>
+                <li>Access, update, or delete your personal information by contacting us at <a className="text-white underline hover:no-underline">cs@cloudbox99.com</a></li>
                 <li>Opt out of marketing communications by following the unsubscribe link in our emails.</li>
                 <li>Restrict or object to the processing of your data under applicable laws.</li>
               </ul>
