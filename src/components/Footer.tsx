@@ -61,7 +61,7 @@ const COLUMNS = [
       { label: "Cloud Storage", href: "/#services" },
       { label: "CCTV Cloud Storage", href: "/#services" },
       { label: "Backup & Recovery", href: "/#services" },
-      { label: "Managed IT Services", href: "/#services" },
+      { label: "Managed IT Services", href: "/managed-it-services" },
       { label: "Security Operations Center", href: "/#security" },
       { label: "Cybersecurity Consulting", href: "/#security" },
       { label: "Microsoft Licensing", href: "/#services" },

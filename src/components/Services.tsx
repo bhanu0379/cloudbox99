@@ -60,6 +60,7 @@ const SERVICES = [
     description:
       "End-to-end managed IT support so your team can focus on core business, not infrastructure.",
     tags: ["Remote & onsite", "Dedicated engineers"],
+    href: "/managed-it-services",
   },
   {
     icon: Radar,
