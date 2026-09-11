@@ -16,10 +16,6 @@ import {
   Activity,
   TrendingDown,
   Building,
-  Users,
-  Eye,
-  Sliders,
-  LineChart,
   GraduationCap,
   Building2,
   Stethoscope,
@@ -30,7 +26,6 @@ import {
   PhoneCall,
   Sparkles,
   Check,
-  Layers,
   ChevronRight,
 } from "lucide-react";
 import { SectionHeading } from "./SectionHeading";
@@ -151,100 +146,7 @@ const CORE_SERVICES = [
   },
 ];
 
-const WHY_SWITCH = [
-  {
-    icon: Users,
-    title: "Industry Specialist Team",
-    description:
-      "Dedicated IT professionals who understand the unique regulatory and operational needs of educational institutes, clinics, co-working spaces, and IT companies.",
-  },
-  {
-    icon: Eye,
-    title: "24/7 Proactive Monitoring",
-    description:
-      "We continuously monitor servers, firewalls, and networks, catching hardware faults and bottlenecks before they ever impact your staff or customers.",
-  },
-  {
-    icon: Sliders,
-    title: "Flexible Pay-Per-Use Model",
-    description:
-      "Eliminate heavy fixed IT payrolls. Scale support up or down easily based on your headcount, seasonal peaks, and business requirements.",
-  },
-  {
-    icon: LineChart,
-    title: "Strategic IT Planning (vCIO)",
-    description:
-      "Benefit from expert guidance. We design long-term technology roadmaps, hardware replacement budgets, and IT disaster recovery plans aligned with your revenue goals.",
-  },
-  {
-    icon: GraduationCap,
-    title: "Free Staff Training",
-    description:
-      "Empower your staff with regular cybersecurity awareness sessions, phishing defense drills, and hands-on productivity training for M365 and cloud tools.",
-  },
-  {
-    icon: Layers,
-    title: "Hybrid Delivery: Remote & Onsite",
-    description:
-      "Get the best of both worlds: lightning-fast remote screen support for day-to-day tickets, plus dedicated onsite engineers (3 to 6 days/week) when needed.",
-  },
-];
 
-const TIERS = [
-  {
-    name: "BRONZE",
-    subtitle: "Essential IT Support",
-    description:
-      "Ideal for startups and small teams that require dependable daily helpdesk and device management.",
-    popular: false,
-    features: [
-      "Basic IT Helpdesk & Support (L1–L2)",
-      "Workstation & OS Patch Management",
-      "Antivirus & Endpoint Monitoring",
-      "Email & User Account Administration",
-      "Standard Business Hours Remote Support",
-      "Monthly IT Health Summary Report",
-    ],
-    cta: "Get Custom Quote",
-    planTag: "Managed IT - Bronze Tier",
-  },
-  {
-    name: "SILVER",
-    subtitle: "Advanced Operations",
-    description:
-      "Best for growing businesses that need proactive infrastructure management and hybrid onsite coverage.",
-    popular: true,
-    features: [
-      "Everything in Bronze, plus:",
-      "Advanced IT Engineering (L1–L3)",
-      "Core Network, Router & WiFi Management",
-      "Microsoft 365 & Google Workspace Administration",
-      "24/7 Proactive Server & Uptime Monitoring",
-      "15-Minute Priority Response SLA",
-      "Hybrid Delivery: Remote + Scheduled Onsite Visits",
-    ],
-    cta: "Get Custom Quote",
-    planTag: "Managed IT - Silver Tier (Most Popular)",
-  },
-  {
-    name: "GOLD",
-    subtitle: "Enterprise Infrastructure",
-    description:
-      "For mid-sized enterprises, campuses, and clinics requiring end-to-end IT ownership and dedicated engineers.",
-    popular: false,
-    features: [
-      "Everything in Silver, plus:",
-      "Full Multi-Tier Support Desk (L1–L4)",
-      "Dedicated Onsite Engineers (3–6 Days/Week)",
-      "Cybersecurity Audits & Vulnerability Assessments",
-      "Server Virtualization & Multi-Cloud Management",
-      "CCTV EyeCloud Backup & Disaster Recovery",
-      "Dedicated Account Manager & Strategic vCIO Advisory",
-    ],
-    cta: "Get Custom Quote",
-    planTag: "Managed IT - Gold Enterprise Tier",
-  },
-];
 
 const INDUSTRIES = [
   {
@@ -535,117 +437,7 @@ export function ManagedITServicesContent() {
         </div>
       </section>
 
-      {/* WHY SWITCH SECTION */}
-      <section className="relative border-y border-white/[0.06] bg-surface/30 py-24">
-        <div className="mx-auto max-w-7xl px-6">
-          <SectionHeading
-            eyebrow="The Cloudbox99 Advantage"
-            title="Why Switch to Cloudbox99 Managed IT?"
-            description="Make the smart choice for your business technology. Experience proactive care instead of reactive panic."
-          />
 
-          <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {WHY_SWITCH.map((item, i) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.5, delay: i * 0.07 }}
-                className="rounded-2xl border border-white/[0.06] bg-surface p-7 transition-all duration-300 hover:border-white/15"
-              >
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5">
-                  <item.icon className="h-5 w-5 text-accent-violet" />
-                </div>
-                <h4 className="mt-4 font-display text-lg font-semibold text-white">
-                  {item.title}
-                </h4>
-                <p className="mt-2.5 text-sm leading-relaxed text-muted">
-                  {item.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* TIERS / POWER LEVELS */}
-      <section className="relative py-24">
-        <div className="mx-auto max-w-7xl px-6">
-          <SectionHeading
-            eyebrow="Pricing & Packages"
-            title="Pick Your Power Level"
-            description="Flexible, predictable plans that scale seamlessly as your workforce and infrastructure expand."
-          />
-
-          <div className="mt-16 grid grid-cols-1 gap-8 lg:grid-cols-3">
-            {TIERS.map((tier, i) => (
-              <motion.div
-                key={tier.name}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className={cn(
-                  "relative flex flex-col justify-between rounded-3xl p-8 transition-all duration-300",
-                  tier.popular
-                    ? "glass border-accent-cyan/50 shadow-2xl shadow-cyan-500/10 ring-1 ring-accent-cyan/40"
-                    : "glass border-white/[0.06] hover:border-white/20"
-                )}
-              >
-                {tier.popular && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-accent-cyan to-accent-violet px-4 py-1 text-[11px] font-bold uppercase tracking-wider text-black">
-                    Most Popular
-                  </div>
-                )}
-
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-semibold tracking-widest text-accent-cyan">
-                      {tier.name}
-                    </span>
-                    <span className="text-xs font-medium text-muted">{tier.subtitle}</span>
-                  </div>
-
-                  <h3 className="mt-3 font-display text-2xl font-bold text-white">
-                    {tier.name} TIER
-                  </h3>
-                  <p className="mt-2 text-sm text-muted leading-relaxed">{tier.description}</p>
-
-                  <div className="my-6 border-t border-white/[0.06]" />
-
-                  <p className="font-mono text-xs uppercase tracking-wider text-white/70 mb-4">
-                    What&apos;s Included:
-                  </p>
-                  <ul className="space-y-3">
-                    {tier.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-3 text-sm text-muted">
-                        <CheckCircle2 className="h-4 w-4 shrink-0 text-accent-cyan mt-0.5" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="mt-8 pt-6 border-t border-white/[0.06]">
-                  <button
-                    type="button"
-                    onClick={() => handleOpenModal(tier.planTag)}
-                    className={cn(
-                      "w-full rounded-full py-3.5 text-center text-sm font-semibold transition-all hover:scale-[1.02]",
-                      tier.popular
-                        ? "bg-white text-black shadow-md hover:bg-white/90"
-                        : "border border-white/20 bg-white/5 text-white hover:bg-white/10"
-                    )}
-                  >
-                    {tier.cta}
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* INDUSTRY SPECIFIC SOLUTIONS */}
       <section className="relative border-y border-white/[0.06] bg-surface/40 py-24">
