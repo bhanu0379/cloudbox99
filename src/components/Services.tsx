@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   Server,
@@ -159,12 +160,21 @@ export function Services() {
                   ))}
                 </div>
                 {service.href ? (
-                  <a
-                    href={service.href}
-                    className="relative mt-5 inline-flex items-center gap-1 text-sm font-medium text-white opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100"
-                  >
-                    Learn more <ArrowUpRight className="h-3.5 w-3.5" />
-                  </a>
+                  service.href.startsWith("/") ? (
+                    <Link
+                      href={service.href}
+                      className="relative mt-5 inline-flex items-center gap-1 text-sm font-medium text-white opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100"
+                    >
+                      Learn more <ArrowUpRight className="h-3.5 w-3.5" />
+                    </Link>
+                  ) : (
+                    <a
+                      href={service.href}
+                      className="relative mt-5 inline-flex items-center gap-1 text-sm font-medium text-white opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100"
+                    >
+                      Learn more <ArrowUpRight className="h-3.5 w-3.5" />
+                    </a>
+                  )
                 ) : (
                   <button
                     type="button"
