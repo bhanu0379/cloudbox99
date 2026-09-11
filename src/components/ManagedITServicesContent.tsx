@@ -706,13 +706,13 @@ export function ManagedITServicesContent() {
 
                 <div className="mt-6 flex items-center gap-3.5 border-t border-white/[0.06] pt-5">
                   {t.logo ? (
-                    <div className="relative h-10 w-24 shrink-0 rounded-lg bg-white/5 p-1 flex items-center justify-center border border-white/10 overflow-hidden">
+                    <div className="relative h-11 w-28 shrink-0 rounded-xl bg-white px-2.5 py-1.5 flex items-center justify-center shadow-md shadow-black/30 overflow-hidden">
                       <Image
                         src={t.logo}
                         alt={t.client}
-                        width={90}
+                        width={96}
                         height={36}
-                        className="max-h-full w-auto object-contain brightness-95"
+                        className="max-h-full w-auto object-contain"
                       />
                     </div>
                   ) : (
