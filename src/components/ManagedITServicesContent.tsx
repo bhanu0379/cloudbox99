@@ -508,15 +508,13 @@ export function ManagedITServicesContent() {
                   <p className="mt-3 text-sm leading-relaxed text-muted">&ldquo;{t.quote}&rdquo;</p>
                 </div>
 
-                <div className="mt-6 flex items-center gap-3.5 border-t border-white/[0.06] pt-5">
+                <div className="mt-6 flex items-center gap-3 border-t border-white/[0.06] pt-5">
                   {t.logo ? (
-                    <div className="relative h-9 w-24 shrink-0 flex items-center justify-start">
-                      <Image
-                        src={t.logo}
-                        alt={t.client}
-                        className="max-h-8 w-auto object-contain"
-                      />
-                    </div>
+                    <Image
+                      src={t.logo}
+                      alt={t.client}
+                      className="h-8 w-auto max-w-[120px] shrink-0 object-contain"
+                    />
                   ) : (
                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-accent-cyan to-accent-violet text-xs font-bold text-black">
                       {t.initials}
@@ -656,7 +654,6 @@ export function ManagedITServicesContent() {
         defaultNeed={modalDefaultNeed}
         title="Start a 7-day free trial"
         subtitle="Experience our enterprise-grade managed IT support with zero risk. Tell us about your setup to get started."
-        submitText="Start 7-Day Free Trial"
       />
     </>
   );

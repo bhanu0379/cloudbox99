@@ -31,8 +31,7 @@ export function ContactModal({
     (isManagedIT
       ? "Experience our enterprise-grade managed IT support with zero risk. Tell us what you need and our engineers will get you set up."
       : "Tell us what you need. Our team replies with a plan, not a sales pitch.");
-  const buttonText =
-    submitText || (isManagedIT ? "Start 7-Day Free Trial" : "Send request");
+  const buttonText = submitText || "Send request";
   const effectiveDefaultNeed =
     defaultNeed || (isManagedIT ? "Managed IT Services - 7-Day Free Trial" : "");
 
