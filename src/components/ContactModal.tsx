@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, ArrowRight, X, AlertCircle } from "lucide-react";
 
@@ -8,11 +9,33 @@ export function ContactModal({
   isOpen,
   onClose,
   defaultNeed = "",
+  title,
+  subtitle,
+  submitText,
 }: {
   isOpen: boolean;
   onClose: () => void;
   defaultNeed?: string;
+  title?: string;
+  subtitle?: string;
+  submitText?: string;
 }) {
+  const pathname = usePathname();
+  const isManagedIT =
+    pathname === "/managed-it-services" || pathname?.endsWith("/managed-it-services");
+
+  const headingTitle =
+    title || (isManagedIT ? "Start a 7-day free trial" : "Get a quote");
+  const headingSubtitle =
+    subtitle ||
+    (isManagedIT
+      ? "Experience our enterprise-grade managed IT support with zero risk. Tell us what you need and our engineers will get you set up."
+      : "Tell us what you need. Our team replies with a plan, not a sales pitch.");
+  const buttonText =
+    submitText || (isManagedIT ? "Start 7-Day Free Trial" : "Send request");
+  const effectiveDefaultNeed =
+    defaultNeed || (isManagedIT ? "Managed IT Services - 7-Day Free Trial" : "");
+
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -88,18 +111,22 @@ export function ContactModal({
               </button>
 
               <div className="mb-6">
-                <h3 className="font-display text-xl font-semibold text-white">Get a quote</h3>
+                <h3 className="font-display text-xl font-semibold text-white">{headingTitle}</h3>
                 <p className="mt-1.5 text-sm text-muted">
-                  Tell us what you need. Our team replies with a plan, not a sales pitch.
+                  {headingSubtitle}
                 </p>
               </div>
 
               {status === "sent" ? (
                 <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/[0.02] py-12 text-center">
                   <CheckCircle2 className="h-10 w-10 text-accent-cyan" />
-                  <h3 className="font-display text-lg font-semibold text-white">Request received</h3>
+                  <h3 className="font-display text-lg font-semibold text-white">
+                    {isManagedIT ? "Trial request received" : "Request received"}
+                  </h3>
                   <p className="text-sm text-muted">
-                    Thanks — a member of our team will follow up shortly.
+                    {isManagedIT
+                      ? "Thanks — our engineering team will follow up shortly to activate your 7-day free trial."
+                      : "Thanks — a member of our team will follow up shortly."}
                   </p>
                   <button
                     onClick={onClose}
@@ -123,7 +150,13 @@ export function ContactModal({
                   <Field label="Phone" name="phone" type="tel" placeholder="+91 98765 43210" required />
 
                   {/* Plan / Interest — pre-filled from pricing card */}
-                  <Field label="Plan / Interest" name="select_price" placeholder="VPS Basic, VPS Medium, Custom..." defaultValue={defaultNeed} />
+                  <Field
+                    label="Plan / Interest"
+                    name="select_price"
+                    placeholder="VPS Basic, VPS Medium, Custom..."
+                    defaultValue={effectiveDefaultNeed}
+                    key={effectiveDefaultNeed}
+                  />
 
                   {/* Company */}
                   <Field label="Company" name="company" placeholder="Acme Inc." />
@@ -135,7 +168,11 @@ export function ContactModal({
                       name="comments"
                       rows={3}
                       required
-                      placeholder="Tell us about your infrastructure needs"
+                      placeholder={
+                        isManagedIT
+                          ? "Tell us about your IT setup, user count, or support requirements"
+                          : "Tell us about your infrastructure needs"
+                      }
                       className="w-full resize-none rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-muted/60 outline-none transition-colors focus:border-accent-cyan/50"
                     />
                   </div>
@@ -152,7 +189,7 @@ export function ContactModal({
                     disabled={status === "sending"}
                     className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition-transform hover:scale-[1.02] disabled:opacity-60"
                   >
-                    {status === "sending" ? "Sending..." : "Send request"}
+                    {status === "sending" ? "Sending..." : buttonText}
                     {status !== "sending" && <ArrowRight className="h-4 w-4" />}
                   </button>
                 </form>

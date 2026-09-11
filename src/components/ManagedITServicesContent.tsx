@@ -1,8 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import rockwellLogo from "../../public/clients/rockwellSchoolLogo.png";
+import uniprotechLogo from "../../public/clients/Uniprotech-2.png";
+import kendraLogo from "../../public/clients/Kendra.png";
 import {
   ArrowRight,
   Headset,
@@ -182,7 +185,7 @@ const TESTIMONIALS = [
       "Cloudbox99's technical expertise and proactive support ensure smooth, secure IT operations. Exceptional problem-solving and professionalism boost efficiency highly valued at 4.9/5.",
     client: "Rockwell Business School of Management",
     initials: "RS",
-    logo: "/clients/rockwellSchoolLogo.png",
+    logo: rockwellLogo,
   },
   {
     title: "Awesome Services!",
@@ -190,7 +193,7 @@ const TESTIMONIALS = [
       "We got in alliance with Cloudbox99 when it was a small startup and probably that was the best decision we made while choosing a service. They grew along with us and helped us to fulfil our client requirements with utmost priority and care.",
     client: "UNIPRO TECH",
     initials: "UT",
-    logo: "/clients/Uniprotech-2.png",
+    logo: uniprotechLogo,
   },
   {
     title: "Great & Talented Team!",
@@ -198,7 +201,7 @@ const TESTIMONIALS = [
       "Cloudbox99 has been a great cloud partner for us. Their uptime is unmatched and they have a great customer service team.",
     client: "Kendra Business Technologies Private Limited",
     initials: "KB",
-    logo: "/clients/Kendra.png",
+    logo: kendraLogo,
   },
 ];
 
@@ -240,7 +243,16 @@ const FAQS = [
 export function ManagedITServicesContent() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalDefaultNeed, setModalDefaultNeed] = useState("Managed IT Services - General Inquiry");
+  const [modalDefaultNeed, setModalDefaultNeed] = useState("Managed IT Services - 7-Day Free Trial");
+
+  // Automatically trigger the 7-day free trial pop up when visiting the Managed IT Services page
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsModalOpen(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleOpenModal = (need: string) => {
     setModalDefaultNeed(need);
@@ -498,17 +510,15 @@ export function ManagedITServicesContent() {
 
                 <div className="mt-6 flex items-center gap-3.5 border-t border-white/[0.06] pt-5">
                   {t.logo ? (
-                    <div className="relative h-11 w-28 shrink-0 rounded-xl bg-white px-2.5 py-1.5 flex items-center justify-center shadow-md shadow-black/30 overflow-hidden">
+                    <div className="relative h-9 w-24 shrink-0 flex items-center justify-start">
                       <Image
                         src={t.logo}
                         alt={t.client}
-                        width={96}
-                        height={36}
-                        className="max-h-full w-auto object-contain"
+                        className="max-h-8 w-auto object-contain"
                       />
                     </div>
                   ) : (
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-accent-cyan to-accent-violet text-xs font-bold text-black">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-accent-cyan to-accent-violet text-xs font-bold text-black">
                       {t.initials}
                     </div>
                   )}
@@ -639,11 +649,14 @@ export function ManagedITServicesContent() {
         </div>
       </section>
 
-      {/* QUOTE / CONTACT MODAL */}
+      {/* 7-DAY FREE TRIAL / CONTACT MODAL */}
       <ContactModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         defaultNeed={modalDefaultNeed}
+        title="Start a 7-day free trial"
+        subtitle="Experience our enterprise-grade managed IT support with zero risk. Tell us about your setup to get started."
+        submitText="Start 7-Day Free Trial"
       />
     </>
   );
